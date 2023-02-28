@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Musiqa pleeri</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./css/main.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div id="particles-js">
+      <div class="container" id="container">
+        <i style="cursor: pointer" class="fas fa-bars" id="bars"></i>
+        <div class="menu">
+          <i style="cursor: pointer" class="fa-solid fa-xmark" id="exit"></i>
+          <ul id="music-list"></ul>
+        </div>
+        <div class="souond_volume" id="souond_volume">
+          <h4 id="sound">00</h4>
+        </div>
+        <h1 id="title">Heather - Conan Gray</h1>
+        <div class="image-container">
+          <img
+            src="img/Heather - Conan Gray.jpg"
+            alt="album cover"
+            id="cover"
+          />
+        </div>
+        <form>
+          <input
+            id="volume"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+          />
+        </form>
+        <div class="time">
+          <span id="start">00:00</span>
+          <span id="end">00:00</span>
+        </div>
+        <div class="progress-container" id="progress-container">
+          <div class="progress" id="progress"></div>
+        </div>
+        <audio src="musics/Heather - Conan Gray.mp3" id="audio"></audio>
+        <div class="nav">
+          <button class="btn" id="prev">
+            <i class="fas fa-backward"></i>
+          </button>
+          <button class="btn big" id="play">
+            <i class="fas fas fa-play"></i>
+          </button>
+          <button class="btn" id="next">
+            <i class="fas fas fa-forward"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/main.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/app.js"></script>
+</html>
