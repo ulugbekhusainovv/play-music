@@ -22,9 +22,13 @@
   <body>
     <div id="particles-js">
       <div class="container" id="container">
-        <i style="cursor: pointer" class="fas fa-bars" id="bars"></i>
+        <abbr title="Ctrl (Control)"
+          ><i style="cursor: pointer" class="fas fa-bars" id="bars"></i
+        ></abbr>
         <div class="menu">
-          <i style="cursor: pointer" class="fa-solid fa-xmark" id="exit"></i>
+          <abbr title="Backspace"
+            ><i style="cursor: pointer" class="fa-solid fa-xmark" id="exit"></i
+          ></abbr>
           <ul id="music-list"></ul>
         </div>
         <div class="souond_volume" id="souond_volume">
@@ -39,14 +43,16 @@
           />
         </div>
         <form>
-          <input
-            id="volume"
-            type="range"
-            min="0"
-            max="100"
-            step="1"
-            value="50"
-          />
+          <abbr style="border: none" title="ArrowUp ➕ or ArrowDown ➖">
+            <input
+              id="volume"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value="50"
+            />
+          </abbr>
         </form>
         <div class="time">
           <span id="start">00:00</span>
@@ -58,19 +64,25 @@
         <audio src="musics/Heather - Conan Gray.mp3" id="audio"></audio>
         <div class="nav">
           <button class="btn" id="prev">
-            <i class="fas fa-backward"></i>
+            <abbr style="cursor: pointer; border: none" title="ArrowLeft">
+              <i class="fas fa-backward"></i
+            ></abbr>
           </button>
           <button class="btn big" id="play">
-            <i class="fas fas fa-play"></i>
+            <abbr style="cursor: pointer; border: none" title="Space"
+              ><i class="fas fas fa-play"></i
+            ></abbr>
           </button>
           <button class="btn" id="next">
-            <i class="fas fas fa-forward"></i>
+            <abbr style="cursor: pointer; border: none" title="ArrowRight">
+              <i class="fas fas fa-forward"></i
+            ></abbr>
           </button>
         </div>
       </div>
     </div>
   </body>
-  <script src="js/main.js"></script>
-  <script src="js/particles.js"></script>
-  <script src="js/app.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/particles.js"></script>
+  <script src="./js/app.js"></script>
 </html>

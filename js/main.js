@@ -42,23 +42,28 @@ const musicInterval = () => {
     timeFormatter();
   }, 1000);
 };
+musicInterval();
 const timeFormatter = () => {
-  start.textContent =
-    parseInt(audio.currentTime / 60) + ":" + parseInt(audio.currentTime % 60);
-  end.textContent =
-    parseInt(audio.duration / 60) + ":" + parseInt(audio.duration % 60);
-  progress.style.width = (audio.currentTime / audio.duration) * 100 + "%";
-  if (audio.currentTime == audio.duration) {
+  let duration = audio.duration;
+  let currTime = audio.currentTime;
+  progress.style.width = (currTime / duration) * 100 + "%";
+
+  let endMinutes = parseInt(duration / 60);
+  let endSecundes = parseInt(duration % 60);
+
+  end.textContent = `${endMinutes}:${(endSecundes =
+    endSecundes < 10 ? "0" + endSecundes : endSecundes)}`;
+  if (currTime == duration) {
     nextMusic();
+    musicInterval();
   }
-  if (audio.currentTime >= 60) {
-    start.textContent =
-      parseInt(audio.currentTime / 60) + ":" + parseInt(audio.currentTime % 60);
-  } else if (audio.currentTime >= 0) {
-    let audioRound = Math.floor(audio.currentTime);
-    start.textContent = `00:${audioRound < 10 ? "0" + audioRound : audioRound}`;
-  }
+  let startMinutes = parseInt(currTime / 60);
+  let startSecund = parseInt(currTime % 60);
+  start.textContent = `${(startMinutes =
+    startMinutes < 10 ? "0" + startMinutes : startMinutes)}:${(startSecund =
+    startSecund < 10 ? "0" + startSecund : startSecund)}`;
 };
+
 loadSong(index);
 function loadSong(i) {
   title.textContent = songs[i];
@@ -76,7 +81,7 @@ function nextMusic() {
   musicInterval();
   cover.style.animationPlayState = "inherit";
   volumeMusic();
-  playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+  playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
 }
 function prevMusic() {
   index--;
@@ -89,7 +94,7 @@ function prevMusic() {
   musicInterval();
   cover.style.animationPlayState = "inherit";
   audio.play();
-  playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+  playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
 }
 function playMusic() {
   if (!isPlayying) {
@@ -98,14 +103,14 @@ function playMusic() {
     cover.style.animationPlayState = "inherit";
     volumeMusic();
     isPlayying = true;
-    playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
   } else {
     audio.pause();
-    // audio.currentTime = 0;
     isPlayying = false;
     cover.style.animationPlayState = "paused";
-    // clearInterval(interval);
-    playBtn.innerHTML = `<i class="fas fas fa-play"></i>`;
+    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"
+    ><i class="fas fas fa-play"></i
+  ></abbr>`;
   }
 }
 
@@ -135,7 +140,6 @@ songs.forEach((music) => {
 });
 musicList.addEventListener("click", (e) => {
   let musicItem = e.target.textContent;
-  // console.log(e.target.textContent);
   musicInterval();
   cover.style.animationPlayState = "inherit";
   if (musicItem == songs[0]) {
@@ -143,33 +147,79 @@ musicList.addEventListener("click", (e) => {
     loadSong(index);
     audio.play();
     isPlayying = true;
-    playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
   } else if (musicItem == songs[1]) {
     index = 1;
     loadSong(index);
     audio.play();
     isPlayying = true;
-    playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
   } else if (musicItem == songs[2]) {
     index = 2;
     loadSong(index);
     audio.play();
     isPlayying = true;
-    playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
   } else if (musicItem == songs[3]) {
     index = 3;
     loadSong(index);
     audio.play();
     isPlayying = true;
-    playBtn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`; //
+  }
+}); //
+volume.addEventListener("input", () => {
+  setVolume();
+});
+function volumeMusic() {
+  if (volume.value == 100) {
+    audio.volume = `${1}`;
+  } else if (volume.value < 10) {
+    audio.volume = `0.0${volume.value}`;
+  } else if (volume.value < 100) {
+    audio.volume = `0.${volume.value}`;
+  }
+}
+window.addEventListener("keydown", (e) => {
+  if (e.key == " ") {
+    playMusic();
+  } else if (e.key === "ArrowRight") {
+    nextMusic();
+  } else if (e.key === "ArrowLeft") {
+    prevMusic();
+  } else if (e.key === "ArrowUp") {
+    volume.value++;
+    setVolume();
+  } else if (e.key === "ArrowDown") {
+    volume.value--;
+    setVolume();
+  } else if (e.key === "Control") {
+    menu.style.opacity = "1";
+    menu.style.zIndex = "10";
+    menu.style.height = "50%";
+  } else if (e.key === "Backspace") {
+    menu.style.opacity = "0";
+    menu.style.zIndex = "-1";
+    menu.style.height = "0";
   }
 });
-volume.addEventListener("input", () => {
+function setVolume() {
   volumeMusic();
   souondVolume.textContent = volume.value;
-  if (volume.value <= 70) {
+  if (volume.value == 0) {
+    let mute = confirm("ovozsiz rejim yonsinmi !");
+    if (mute) {
+      volumeMusic();
+      setTimeout(() => {
+        alert("ovozsiz rejimga o'tildi");
+      }, 3000);
+    } else {
+      volume.value = 20;
+      volumeMusic();
+    }
+  } else if (volume.value <= 70) {
     souondVolume.style.color = "#83f80d";
-  } else if (volume.value == 100) {
+  } else if (volume.value == 99) {
     setTimeout(() => {
       let sorov = confirm(
         "ovoz juda baland bu eshitish qobilyatingizga yomon ta'sir ko'rsatishi mumkin musiqa ovozini paslatishni istaysimi 🎧😊"
@@ -187,13 +237,4 @@ volume.addEventListener("input", () => {
   setTimeout(() => {
     souondVolume.style.opacity = "0";
   }, 3000);
-});
-function volumeMusic() {
-  if (volume.value == 100) {
-    audio.volume = `${1}`;
-  } else if (volume.value < 10) {
-    audio.volume = `0.0${volume.value}`;
-  } else if (volume.value < 100) {
-    audio.volume = `0.${volume.value}`;
-  }
 }

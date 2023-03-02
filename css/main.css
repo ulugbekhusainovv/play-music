@@ -126,11 +126,11 @@ ul li{
   height: inherit;
   border-radius: 100%;
   object-fit: cover;
-  animation: imageRotate 10s cubic-bezier(1, -0.01, 1, 1)  infinite;
+  animation: imageRotate 10s linear  infinite;
 }
-#sound {
+/* #sound {
   font-size: 25px;
-}
+} */
 @keyframes imageRotate {
   from{
       transform:  rotate(0);
