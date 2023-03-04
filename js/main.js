@@ -133,41 +133,19 @@ playBtn.addEventListener("click", playMusic);
 
 // });
 
-songs.forEach((music) => {
+songs.forEach((music, index) => {
   musicList.innerHTML += `
-  <li class="item">${music}</li>
+  <li class="item" onclick="selected(${index})" >${music}</li>
   `;
 });
-musicList.addEventListener("click", (e) => {
-  let musicItem = e.target.textContent;
-  musicInterval();
-  cover.style.animationPlayState = "inherit";
-  if (musicItem == songs[0]) {
-    index = 0;
-    loadSong(index);
-    audio.play();
-    isPlayying = true;
-    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
-  } else if (musicItem == songs[1]) {
-    index = 1;
-    loadSong(index);
-    audio.play();
-    isPlayying = true;
-    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
-  } else if (musicItem == songs[2]) {
-    index = 2;
-    loadSong(index);
-    audio.play();
-    isPlayying = true;
-    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
-  } else if (musicItem == songs[3]) {
-    index = 3;
-    loadSong(index);
-    audio.play();
-    isPlayying = true;
-    playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`; //
-  }
-}); //
+
+function selected(i) {
+  loadSong(i);
+  audio.play();
+  isPlayying = true;
+  playBtn.innerHTML = `<abbr style="cursor: pointer; border: none" title="Space"><i class="fa-solid fa-pause"></i></abbr>`;
+}
+
 volume.addEventListener("input", () => {
   setVolume();
 });
